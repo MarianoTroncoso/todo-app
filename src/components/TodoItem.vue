@@ -1,14 +1,13 @@
 <template>
     <div>
         <div class="row my-3 justify-content-between">
-            <!-- <button @click="addTodoI" class="btn btn-primary" >Add</button> -->
             <button @click="addDoneI" class="btn btn-success mx-2"> ✓ </button>
             <!-- para el addDone faltaria lo de todoTextChange (pero de done), pero creo que se puede usar el de todo-->
             <h3 v-if="!editing">{{todo.title}}</h3>
             <input v-bind:value="todoText" @change="todoTextChange" v-else type="text" class="col form-control">
             <div>
                 <button @click="updateTodoI(todo)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
-                <button @click="deleteTodo(todo.id)" class="btn btn-danger mx-2"> Delete</button>
+                <button @click="deleteTodo(todo.id)" class="btn btn-danger"> Delete</button>
             </div>
         </div>
     </div>

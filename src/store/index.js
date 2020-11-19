@@ -53,6 +53,10 @@ export default new Vuex.Store({
     // DONE 
     addDone({commit}, done){
       commit('add_done', done)
+    },
+
+    deleteDone({commit}, id){
+      commit('delete_done', id )
     }
 
   },
@@ -80,6 +84,10 @@ export default new Vuex.Store({
         state.dones.push(done)
         console.log('add_DONE, done')
         console.log(done)
+    },
+
+    delete_done(state, id){
+      state.dones = state.dones.filter(done => done.id != id)
     }
 
     
