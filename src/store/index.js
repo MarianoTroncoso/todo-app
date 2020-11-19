@@ -18,12 +18,26 @@ export default new Vuex.Store({
         id: 3,
         title: 'Three'
       }
+    ],
+
+    dones: [
+      {
+        id: 4,
+        title: 'Four'
+      },
+      {
+        id: 5,
+        title: 'Five'
+      }
     ]
   },
   getters:{
-    allTodos: (state) => state.todos
+    allTodos: (state) => state.todos,
+    allDones: (state) => state.dones
   },
   actions: {
+
+    // TO DO 
     addTodo({commit}, todo){
       commit("add_todo", todo)
     },
@@ -34,9 +48,17 @@ export default new Vuex.Store({
 
     updateTodo({commit},todo){
       commit("update_todo", todo)
+    },
+
+    // DONE 
+    addDone({commit}, done){
+      commit('add_done', done)
     }
+
   },
   mutations: {
+
+    // TO DO 
     add_todo(state,todo){
       state.todos.push(todo);
     },
@@ -50,6 +72,14 @@ export default new Vuex.Store({
       if(index != -1){
         state.todo[index] = todo
       }
+    },
+
+    // DONE 
+
+    add_done(state, done){
+        state.dones.push(done)
+        console.log('add_DONE, done')
+        console.log(done)
     }
 
     

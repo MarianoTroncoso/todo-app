@@ -2,6 +2,7 @@
   <div id="app" class="container">
     <TodoInput />
     <TodoList />
+    <DoneList />
 
   </div>
 </template>
@@ -10,12 +11,14 @@
 
 import TodoInput from './components/TodoInput'
 import TodoList from './components/TodoList'
+import DoneList from './components/DoneList'
 
 export default {
   name: 'App',
   components: {
     TodoInput,
     TodoList,
+    DoneList,
   }
 }
 </script>
