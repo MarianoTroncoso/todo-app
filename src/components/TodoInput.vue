@@ -9,7 +9,7 @@
             The task already exists
         </b-alert>
         <div class="row">
-            <input @change="todoTextChange" v-bind:value="todoText" @keyup.enter="addTodoI" class="col form-control mr-2" type="text"> 
+            <input @change="todoTextChange" v-bind:value="todoText" @keyup.enter="addTodoI" class="col form-control mr-2" type="text" placeholder="enter a task"> 
             <button @click="addTodoI" class="btn btn-primary">Add</button>
         </div>
     </div>

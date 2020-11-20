@@ -4,7 +4,8 @@
             <button @click="addDoneI" class="btn btn-success mx-2"> ✓ </button>
             <!-- para el addDone faltaria lo de todoTextChange (pero de done), pero creo que se puede usar el de todo-->
             <h3 v-if="!editing">{{todo.title}}</h3>
-            <input v-bind:value="todoText" @change="todoTextChange" v-else type="text" class="col form-control">
+            <input v-bind:value="todoText" @change="todoTextChange" v-else type="text" class="col form-control"
+            @keyup.enter="updateTodoI(todo)">
             <div>
                 <button @click="updateTodoI(todo)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
                 
