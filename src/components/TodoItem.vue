@@ -7,7 +7,20 @@
             <input v-bind:value="todoText" @change="todoTextChange" v-else type="text" class="col form-control">
             <div>
                 <button @click="updateTodoI(todo)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
-                <button @click="deleteTodo(todo.id)" class="btn btn-danger"> Delete</button>
+                
+                <!-- <button @click="deleteTodo(todo.id)" class="btn btn-danger">Delete</button> -->
+
+                <b-button id="show-btn" @click="showModal" class="btn btn-danger">Delete</b-button>
+
+                <b-modal ref="my-modal" hide-footer title="Delete To Do">
+                    <div class="d-block text-center">
+                        <p>The task has not been completed. Are you sure to delete it?</p>
+                    </div>
+                    <b-button class="mt-3" block @click="hideModal">Close</b-button>
+                    <b-button class="btn btn-danger mt-2" block @click="deleteTodoAndHide(todo.id)">Delete</b-button>
+                </b-modal>
+
+                
             </div>
         </div>
     </div>
@@ -15,6 +28,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+
     export default {
         props:{
             todo:{}
@@ -51,11 +65,24 @@ import { mapActions } from 'vuex'
                     id: this.todo.id,
                     title: this.todo.title,
                 })
-
                 this.deleteTodo(this.todo.id)
-                // LO SIGUIENTE CREO QUE NO ES NECESARIO
-                // this.doneText = ''
+            },
+
+            // MODAL 
+
+            showModal() {
+                this.$refs['my-modal'].show()
+            },
+            hideModal() {
+                this.$refs['my-modal'].hide()
+            },
+
+            deleteTodoAndHide(id){
+                this.$refs['my-modal'].hide()
+                this.deleteTodo(id)
+
             }
+
         }
     }
 </script>
