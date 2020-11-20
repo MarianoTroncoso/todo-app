@@ -18,12 +18,26 @@ export default new Vuex.Store({
         id: 3,
         title: 'Three'
       }
+    ],
+
+    dones: [
+      {
+        id: 4,
+        title: 'Four'
+      },
+      {
+        id: 5,
+        title: 'Five'
+      }
     ]
   },
   getters:{
-    allTodos: (state) => state.todos
+    allTodos: (state) => state.todos,
+    allDones: (state) => state.dones
   },
   actions: {
+
+    // TO DO 
     addTodo({commit}, todo){
       commit("add_todo", todo)
     },
@@ -34,9 +48,23 @@ export default new Vuex.Store({
 
     updateTodo({commit},todo){
       commit("update_todo", todo)
+    },
+
+    // DONE 
+    addDone({commit}, done){
+      commit('add_done', done)
+    },
+    deleteDone({commit}, id){
+      commit('delete_done', id )
+    },
+    updateDone({commit}, done){
+      commit('update_done', done)
     }
+
   },
   mutations: {
+
+    // TO DO 
     add_todo(state,todo){
       state.todos.push(todo);
     },
@@ -48,8 +76,26 @@ export default new Vuex.Store({
     update_todo(state, todo){
       let index = state.todos.findIndex(t => t.id == todo.id )
       if(index != -1){
-        state.todo[index] = todo
+        state.todos[index] = todo
       }
+    },
+
+    // DONE 
+
+    add_done(state, done){
+        state.dones.push(done)
+    },
+
+    delete_done(state, id){
+      state.dones = state.dones.filter(done => done.id != id)
+    },
+
+    update_done(state, done){
+      let index = state.dones.findIndex(d => d.id == done.id)
+      if(index != -1){
+        state.dones[index] = done
+      }
+
     }
 
     
