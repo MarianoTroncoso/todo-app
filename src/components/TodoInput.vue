@@ -51,9 +51,11 @@
 
                 if(exists){
                     this.exists = true
+                    this.noDescription = false 
                 } 
                 else if(this.todoText == ''){
                     this.noDescription = true
+                    this.exists = false
                 }
                 else{
                     this.addTodo({
