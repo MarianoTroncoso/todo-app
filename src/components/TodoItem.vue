@@ -17,8 +17,11 @@
                     <div class="d-block text-center">
                         <p>The task has not been completed. Are you sure to delete it?</p>
                     </div>
-                    <b-button class="mt-3" block @click="hideModal">Close</b-button>
-                    <b-button class="btn btn-danger mt-2" block @click="deleteTodoAndHide(todo.id)">Delete</b-button>
+                    <div class="row">
+                        <b-button class="col mt-2" block @click="hideModal">Close</b-button>
+                        <b-button   b-button class="col btn btn-danger mt-2" block @click="deleteTodoAndHide(todo.id)">Delete</b-button>
+                    </div>
+                    
                 </b-modal>
 
                 
