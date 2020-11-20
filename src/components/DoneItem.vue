@@ -39,16 +39,12 @@ import { mapActions } from 'vuex'
                 }
             },
             addTodoFromDone(done){
-                console.log('done: ')
-                console.log(done)
                 this.addTodo({
                         id: done.id,
                         title: done.title
-                    })
-                    // this.todoText = ""
-                
+                    })                
                 this.deleteDone(done.id)
-                }
+            }
         }
     }
 </script>
