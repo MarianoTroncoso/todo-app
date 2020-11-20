@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <input @change="todoTextChange" v-bind:value="todoText" class="col form-control mr-2" type="text">
-            <button @click="addTodoI" class="btn btn-primary" >Add</button>
+            <button @click="addTodoI" class="btn btn-primary">Add</button>
         </div>
     </div>
 </template>
