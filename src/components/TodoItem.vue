@@ -46,12 +46,13 @@ import { mapActions } from 'vuex'
 
             // DONE
             addDoneI(){
-                // console.log('ADD DONE, this.todo')
-                // console.log(this.todo)
+
                 this.addDone({
                     id: this.todo.id,
                     title: this.todo.title,
                 })
+
+                this.deleteTodo(this.todo.id)
                 // LO SIGUIENTE CREO QUE NO ES NECESARIO
                 // this.doneText = ''
             }

@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="row my-3 justify-content-between">
-            <button class="btn btn-success mx-2"> ✓ </button>
-            <h3 v-if="!editing">{{done.title}}</h3>
+            <button @click="addTodoFromDone(done)" class="btn btn-success mx-2"> ✓ </button>
+            <h3 v-if="!editing"><del>{{done.title}}</del></h3>
             <input v-bind:value="doneText" @change="doneTextChange" v-else type="text" class="col form-control">
             <div>
                 <button @click="updateDoneI(done)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
@@ -25,7 +25,7 @@ import { mapActions } from 'vuex'
             }
         },
         methods:{
-            ...mapActions(["deleteDone", "updateDone"]),
+            ...mapActions(["deleteDone", "updateDone", "addTodo"]),
             doneTextChange(e){
                 this.doneText = e.target.value
             },
@@ -37,7 +37,18 @@ import { mapActions } from 'vuex'
                 } else{
                     done.title = this.doneText
                 }
-            }
+            },
+            addTodoFromDone(done){
+                console.log('done: ')
+                console.log(done)
+                this.addTodo({
+                        id: done.id,
+                        title: done.title
+                    })
+                    // this.todoText = ""
+                
+                this.deleteDone(done.id)
+                }
         }
     }
 </script>
