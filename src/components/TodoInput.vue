@@ -45,13 +45,9 @@
 
             addTodoI(){
                 
-                // todoAux: variable que guardará "undefined" si el elemento no existe
-                // por lo que tendré que guardarlo 
                 // si todoAux es distinto de "undefined" el elemento ya existe y por lo tanto no lo guardo
                 const todoAux = this.allTodos().find(t => t.title == this.todoText)
                 const exists = todoAux == undefined? false : true
-
-                console.log(exists)
 
                 if(exists){
                     this.exists = true

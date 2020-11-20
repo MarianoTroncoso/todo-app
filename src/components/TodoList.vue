@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>To Do</h2>
+        <h2 class="bg-warning">To Do</h2>
         <div v-for="todo in allTodos" :key="todo.id">
             <TodoItem :todo="todo" />
     </div>

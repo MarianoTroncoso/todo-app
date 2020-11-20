@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row my-3 justify-content-between">
-            <button @click="addTodoFromDone(done)" class="btn btn-success mx-2"> ✓ </button>
+            <button @click="addTodoFromDone(done)" class="btn btn-warning mx-2"> ✓ </button>
             <h3 v-if="!editing"><del>{{done.title}}</del></h3>
             <input v-bind:value="doneText" @change="doneTextChange" v-else type="text" class="col form-control">
             <div>
