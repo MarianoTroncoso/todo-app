@@ -54,9 +54,11 @@ export default new Vuex.Store({
     addDone({commit}, done){
       commit('add_done', done)
     },
-
     deleteDone({commit}, id){
       commit('delete_done', id )
+    },
+    updateDone({commit}, done){
+      commit('update_done', done)
     }
 
   },
@@ -74,7 +76,7 @@ export default new Vuex.Store({
     update_todo(state, todo){
       let index = state.todos.findIndex(t => t.id == todo.id )
       if(index != -1){
-        state.todo[index] = todo
+        state.todos[index] = todo
       }
     },
 
@@ -82,12 +84,18 @@ export default new Vuex.Store({
 
     add_done(state, done){
         state.dones.push(done)
-        console.log('add_DONE, done')
-        console.log(done)
     },
 
     delete_done(state, id){
       state.dones = state.dones.filter(done => done.id != id)
+    },
+
+    update_done(state, done){
+      let index = state.dones.findIndex(d => d.id == done.id)
+      if(index != -1){
+        state.dones[index] = done
+      }
+
     }
 
     
