@@ -2,12 +2,28 @@
 
 const express = require('express');
 const morgan = require('morgan');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 
 // settings 
 app.set('port', process.env.PORT || 3000)
+
+// MONGO
+const uri = process.env.URI_MONGO;
+mongoose.connect(uri, 
+    {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true
+    })
+const connection = mongoose.connection;
+connection.once('open', () => {
+    console.log('Me conecté a mongo')
+})
 
 
 // middlewares
