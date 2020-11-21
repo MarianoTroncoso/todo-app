@@ -22,7 +22,7 @@ mongoose.connect(uri,
     })
 const connection = mongoose.connection;
 connection.once('open', () => {
-    console.log('Me conecté a mongo')
+    console.log('Connected to Mongo')
 })
 
 
