@@ -5,20 +5,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    todos:[
-      {
-        id: 1,
-        title: 'One'
-      },
-      {
-        id: 2,
-        title: 'Two'
-      },
-      {
-        id: 3,
-        title: 'Three'
-      }
-    ],
+
+    todos:[],
+
+    // todos:[
+    //   {
+    //     id: 1,
+    //     title: 'One'
+    //   },
+    //   {
+    //     id: 2,
+    //     title: 'Two'
+    //   },
+    //   {
+    //     id: 3,
+    //     title: 'Three'
+    //   }
+    // ],
 
     dones: [
       {
@@ -59,7 +62,12 @@ export default new Vuex.Store({
     },
     updateDone({commit}, done){
       commit('update_done', done)
-    }
+    },
+
+    // fetchs
+    addTodos({commit}, todos){
+      commit("add_todos", todos)
+    },
 
   },
   mutations: {
@@ -95,9 +103,15 @@ export default new Vuex.Store({
       if(index != -1){
         state.dones[index] = done
       }
+    },
 
-    }
+    // fetchs
+    add_todos(state,todos){
 
+      state.todos = todos.filter(todo => {
+        return todo.done == false
+      })
+    },
     
   },
   modules: {

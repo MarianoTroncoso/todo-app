@@ -25,6 +25,7 @@
             validation() {
                 return this.todoText > 0
             }
+            
         },
 
         data(){
