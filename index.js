@@ -4,6 +4,8 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
+const cors = require('cors')
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -29,6 +31,7 @@ connection.once('open', () => {
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
 
 // routes 
 app.use('/tasks', require('./src/routes/tasks'))
