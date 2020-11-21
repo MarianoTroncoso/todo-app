@@ -28,7 +28,7 @@ connection.once('open', () => {
 
 // middlewares
 app.use(morgan('dev'));
-app.use(express.json())
+app.use(express.json());
 
 // routes 
 app.use('/tasks', require('./src/routes/tasks'))

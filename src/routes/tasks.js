@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const task = new Task(req.body)
     await task.save();
+
     res.json({
         status: "Task saved"
     });

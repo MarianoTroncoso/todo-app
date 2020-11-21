@@ -17,7 +17,7 @@
 
 <script>
     import { mapActions, mapGetters} from 'vuex'
-    import { v1 } from 'uuid'
+    // import { v1 } from 'uuid'
 
     export default {
 
@@ -58,10 +58,33 @@
                     this.exists = false
                 }
                 else{
-                    this.addTodo({
-                        id: v1(),
+
+                    const newTodo = {
+                        // voy a intentar usar solo el id de mongo (_id)
+                        // id:v1(),
                         title: this.todoText
+                    }
+
+                    this.addTodo(newTodo)
+
+                    fetch('http://localhost:3000/tasks', {
+                        method: 'POST', 
+                        body: JSON.stringify(newTodo),
+                        headers:{
+                            'Accept': 'application/json',
+                            'Content-type': 'application/json',
+                        }
                     })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+
+
+                    // this.addTodo({
+                    //     id: v1(),
+                    //     title: this.todoText
+                    // })
+
+                    
                     this.todoText = ""
                     this.noDescription = false  
                     this.exists = false
