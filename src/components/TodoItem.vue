@@ -19,7 +19,7 @@
                     </div>
                     <div class="row">
                         <b-button class="col mt-2" block @click="hideModal">Close</b-button>
-                        <b-button   b-button class="col btn btn-danger mt-2" block @click="deleteTodoAndHide(todo.id)">Delete</b-button>
+                        <b-button   b-button class="col btn btn-danger mt-2" block @click="deleteTodoAndHide(todo._id)">Delete</b-button>
                     </div>
                     
                 </b-modal>
@@ -82,7 +82,10 @@ import { mapActions } from 'vuex'
             },
 
             deleteTodoAndHide(id){
+                // id de mongo
+                // esconder modal
                 this.$refs['my-modal'].hide()
+                
                 this.deleteTodo(id)
 
             }

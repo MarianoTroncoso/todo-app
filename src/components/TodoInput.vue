@@ -68,15 +68,16 @@
 
                     this.addTodo(newTodo)
 
-                    fetch('http://localhost:3000/tasks', {
-                        method: 'POST', 
-                        body: JSON.stringify(newTodo),
-                        headers:{
-                            'Accept': 'application/json',
-                            'Content-type': 'application/json',
-                        }
-                    })
-                    .then(res => res.json())
+                    // VOY A INTENTAR PONER ESTO EN LA FUNCION ANTERIOR
+                    // fetch('http://localhost:3000/tasks', {
+                    //     method: 'POST', 
+                    //     body: JSON.stringify(newTodo),
+                    //     headers:{
+                    //         'Accept': 'application/json',
+                    //         'Content-type': 'application/json',
+                    //     }
+                    // })
+                    // .then(res => res.json())
                     // .then(data => console.log(data))
 
 

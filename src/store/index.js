@@ -73,12 +73,52 @@ export default new Vuex.Store({
   mutations: {
 
     // TO DO 
+
+    // agregar un todo
     add_todo(state,todo){
-      state.todos.push(todo);
+      
+      // front
+      // state.todos.push(todo);
+
+      // back
+      fetch('http://localhost:3000/tasks', {
+        method: 'POST', 
+        body: JSON.stringify(todo),
+        headers:{
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        }
+    })
+    .then(res => res.json())
+    .then( data => {
+        console.log(data)
+        state.todos.push(todo);
+    })
     },
 
+    // eliminar un todo
     delete_todo(state, id){
-      state.todos = state.todos.filter((todo) => todo.id != id)
+
+      // solo elimina front 
+      // podria no hacer esto, y solo borrar en el back y actualizar con un fetch
+      // state.todos = state.todos.filter((todo) => todo.id != id)
+
+      fetch('http://localhost:3000/tasks/' + id,{
+        method: 'DELETE',
+        headers:{
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+      .then( res => res.json())
+      .then( data => {
+        console.log(data)
+        // ACA TENGO QUE ACTUALIZAR LA LISTA DE TODOS
+        state.todos = state.todos.filter((todo) => todo._id != id)
+      })
+
+      
+
     },
 
     update_todo(state, todo){
