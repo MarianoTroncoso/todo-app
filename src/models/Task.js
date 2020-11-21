@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const Task = new Schema({
-    id: Number,
+    // no borro definitivamente el id por si lo necesito en los metodos que lo usan
+    // id: Number,
     title: String,
-    done: Boolean
+    done: {
+        type: Boolean,
+        default: false
+    }
 },
 {
     timestamps: true
