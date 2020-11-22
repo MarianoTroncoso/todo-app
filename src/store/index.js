@@ -51,12 +51,6 @@ export default new Vuex.Store({
       commit('update_done', done)
     },
 
-    // fetchs
-    // original
-    // addTodos({commit}, todos){
-    //   commit("add_todos", todos)
-    // },
-
     getTasks({commit}, tasks){
       commit("get_tasks", tasks)
     }
