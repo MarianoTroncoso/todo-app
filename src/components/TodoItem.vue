@@ -56,8 +56,11 @@ import { mapActions } from 'vuex'
                 this.editing = this.editing == true? false : true
                 if(this.editing) {
                     this.todoText = todo.title
-                    this.updateTodo(todo)
                 } else {
+                    if(todo.title != this.todoText){
+                        // si son distintos hago el fetch
+                        this.updateTodo(todo)
+                    }
                     todo.title = this.todoText
                 }
             },

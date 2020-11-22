@@ -8,31 +8,7 @@ export default new Vuex.Store({
 
     todos:[],
 
-    // todos:[
-    //   {
-    //     id: 1,
-    //     title: 'One'
-    //   },
-    //   {
-    //     id: 2,
-    //     title: 'Two'
-    //   },
-    //   {
-    //     id: 3,
-    //     title: 'Three'
-    //   }
-    // ],
-
-    dones: [
-      {
-        id: 4,
-        title: 'Four'
-      },
-      {
-        id: 5,
-        title: 'Five'
-      }
-    ]
+    dones: []
   },
   getters:{
     allTodos: (state) => state.todos,
@@ -176,10 +152,40 @@ export default new Vuex.Store({
     },
 
     update_todo(state, todo){
-      let index = state.todos.findIndex(t => t.id == todo.id )
-      if(index != -1){
-        state.todos[index] = todo
+
+      // let index = state.todos.findIndex(t => t.id == todo.id )
+      // if(index != -1){
+      //   state.todos[index] = todo
+      // }
+
+      // back
+      const newTodoUpdated = {
+        title: todo.title, 
       }
+
+      console.log(newTodoUpdated)
+
+      // back 
+        fetch('http://localhost:3000/tasks/'+ todo._id, {
+          method: 'PUT', 
+          body: JSON.stringify(newTodoUpdated), 
+          headers:{
+              'Accept': 'application/json',
+              'Content-type': 'application/json',
+          }
+        })
+        .then(res => res.json())
+        .then( data => {
+
+            console.log('data')
+            console.log(data)
+
+            // actualizar front
+            let index = state.todos.findIndex(t => t.id == todo.id )
+            if(index != -1){
+              state.todos[index] = todo
+            }
+        })
     },
 
     // DONE 
@@ -247,7 +253,6 @@ export default new Vuex.Store({
     },
 
     // fetchs
-
     get_tasks(state, tasks){
       // get todos
       state.todos = tasks.filter(todo => {
