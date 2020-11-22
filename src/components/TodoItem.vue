@@ -64,7 +64,6 @@ import { mapActions } from 'vuex'
 
             // DONE
             addDoneI(){
-
                 this.addDone({
                     id: this.todo.id,
                     title: this.todo.title,
@@ -82,14 +81,9 @@ import { mapActions } from 'vuex'
             },
 
             deleteTodoAndHide(id){
-                // id de mongo
-                // esconder modal
-                this.$refs['my-modal'].hide()
-                
+                this.$refs['my-modal'].hide() // esconder ventana modal
                 this.deleteTodo(id)
-
             }
-
         }
     }
 </script>

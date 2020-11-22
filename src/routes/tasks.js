@@ -3,20 +3,34 @@ const router = express.Router();
 
 const Task = require('../models/Task')
 
+// get tasks
 router.get('/', async (req, res) => {
-    // res.send('api task is goes here')
     const tasks = await Task.find();
     res.json(tasks);
 });
 
-router.post('/', async (req, res) => {
-    const task = new Task(req.body)
-    await task.save();
+// post task ORIGINAL 
+// router.post('/', async (req, res) => {
+//     const task = new Task(req.body)
+//     await task.save();
+//     res.json({
+//         status: "Task saved"
+//     })
+// });
 
-    res.json({
-        status: "Task saved"
-    });
+router.post('/', (req, res) => {
+    const task = new Task(req.body)
+    task
+        .save()
+        .then(doc => {
+            res.json({ success: true, data: doc })
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send({ error: err });
+        });
 });
+
 
 // // NO uso el id de mongo (ORIGINAL)
 // router.put('/:id', async (req, res) => {
@@ -33,15 +47,15 @@ router.post('/', async (req, res) => {
 // });
 
 // NUEVO (ahora con el id de mongo)
+// put task
 router.put('/:id', async (req, res) => {
-        
     await Task.findByIdAndUpdate(req.params.id, req.body)
-
     res.json({
         status: "Task updated"
     });
 });
 
+// delete task
 router.delete('/:id', async(req, res) => {
     await Task.findByIdAndRemove(req.params.id);
     res.json({

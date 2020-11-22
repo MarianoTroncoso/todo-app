@@ -24,17 +24,29 @@ export default {
   },
 
   created(){
-    this.getTodos()
+    // this.getTodos()
+    this.getAllTasks()
   },
   methods:{
-    ...mapActions(["addTodos"]), // lista completa de todos
+    ...mapActions(["getTasks"]), // lista completa de todos
 
-    getTodos(){
+    // ORIGINAL
+    // getTodos(){
+    //   fetch('http://localhost:3000/tasks')
+    //     .then(res => res.json())
+    //     .then(data => {
+    //       // console.log(data)
+    //       this.addTodos(data)
+    //     })
+    // }
+
+    // nuevo
+    // todos and dones
+    getAllTasks(){
       fetch('http://localhost:3000/tasks')
         .then(res => res.json())
         .then(data => {
-          // console.log(data)
-          this.addTodos(data)
+          this.getTasks(data)
         })
     }
   }

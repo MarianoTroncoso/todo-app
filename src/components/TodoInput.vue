@@ -17,15 +17,14 @@
 
 <script>
     import { mapActions, mapGetters} from 'vuex'
-    // import { v1 } from 'uuid'
 
     export default {
 
         computed: {
+            // descripcion de tarea
             validation() {
                 return this.todoText > 0
             }
-            
         },
 
         data(){
@@ -61,12 +60,11 @@
                 else{
 
                     const newTodo = {
-                        // voy a intentar usar solo el id de mongo (_id)
-                        // id:v1(),
+                        // campos id y done se settean solos
                         title: this.todoText
                     }
 
-                    this.addTodo(newTodo)
+                    this.addTodo(newTodo);
 
                     // VOY A INTENTAR PONER ESTO EN LA FUNCION ANTERIOR
                     // fetch('http://localhost:3000/tasks', {
@@ -79,13 +77,6 @@
                     // })
                     // .then(res => res.json())
                     // .then(data => console.log(data))
-
-
-                    // this.addTodo({
-                    //     id: v1(),
-                    //     title: this.todoText
-                    // })
-
                     
                     this.todoText = ""
                     this.noDescription = false  
