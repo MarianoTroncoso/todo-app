@@ -1,47 +1,30 @@
 <template>
-  <div id="app" class="container">
-    <TodoInput />
-    <TodoList />
-    <DoneList />
-
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/todo">Todo</router-link> |
+      <router-link to="/done">Done</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
 
-import TodoInput from './components/TodoInput'
-import TodoList from './components/TodoList'
-import DoneList from './components/DoneList'
-
 import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
-  components: {
-    TodoInput,
-    TodoList,
-    DoneList,
-  },
+  components: {},
 
   created(){
     // this.getTodos()
     this.getAllTasks()
   },
-  methods:{
-    ...mapActions(["getTasks"]), // lista completa de todos
 
-    // ORIGINAL
-    // getTodos(){
-    //   fetch('http://localhost:3000/tasks')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       // console.log(data)
-    //       this.addTodos(data)
-    //     })
-    // }
+  methods: {
+    ...mapActions(["getTasks"]),
 
-    // nuevo
-    // todos and dones
     getAllTasks(){
       fetch('http://localhost:3000/tasks')
         .then(res => res.json())
@@ -60,6 +43,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
