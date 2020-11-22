@@ -3,7 +3,6 @@
     <TodoInput />
     <TodoList />
     <DoneList />
-
   </div>
 </template>
 
@@ -29,16 +28,6 @@ export default {
   },
   methods:{
     ...mapActions(["getTasks"]), // lista completa de todos
-
-    // ORIGINAL
-    // getTodos(){
-    //   fetch('http://localhost:3000/tasks')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       // console.log(data)
-    //       this.addTodos(data)
-    //     })
-    // }
 
     // nuevo
     // todos and dones
