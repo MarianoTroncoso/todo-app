@@ -9,6 +9,33 @@
   </div>
 </template>
 
+<script>
+
+import { mapActions } from 'vuex'
+
+export default {
+  name: 'App',
+  components: {},
+
+  created(){
+    // this.getTodos()
+    this.getAllTasks()
+  },
+
+  methods: {
+    ...mapActions(["getTasks"]),
+
+    getAllTasks(){
+      fetch('http://localhost:3000/tasks')
+        .then(res => res.json())
+        .then(data => {
+          this.getTasks(data)
+        })
+    }
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
