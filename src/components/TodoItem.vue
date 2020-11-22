@@ -62,20 +62,15 @@ import { mapActions } from 'vuex'
                     if(todo.title != this.todoText){
                         // si son distintos hago el fetch
 
-                        console.log('se modificó el titulo')
-
-                        // console.log('this.todoText') // nuevo 
-                        // console.log(this.todoText) // la primera vez es vacio por la asignacion de arriba
-                        // console.log('todo.title') // viejo
-                        // console.log(todo.title)
+                        // console.log('se modificó el titulo')
 
                         const newTodo = {
                             _id: todo._id,
                             title: this.todoText
                         }
 
-                        console.log('nuevo todo')
-                        console.log(newTodo)
+                        // console.log('nuevo todo')
+                        // console.log(newTodo)
                         
                         // para actualizar necesito el id !
                         this.updateTodo(newTodo)

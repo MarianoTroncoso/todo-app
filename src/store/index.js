@@ -154,16 +154,6 @@ export default new Vuex.Store({
     // todo = el nuevo
     update_todo(state, todo){
 
-      // let index = state.todos.findIndex(t => t.id == todo.id )
-      // if(index != -1){
-      //   state.todos[index] = todo
-      // }
-
-      // back
-      // const newTodoUpdated = {
-      //   title: todo.title, 
-      // }
-
       // back 
         fetch('http://localhost:3000/tasks/'+ todo._id, {
           method: 'PUT', 
@@ -251,34 +241,27 @@ export default new Vuex.Store({
       //   state.dones[index] = done
       // }
 
-      // back
-      const newDoneUpdated = {
-        title: done.title, 
-      }
+      fetch('http://localhost:3000/tasks/'+ done._id, {
+        method: 'PUT', 
+        body: JSON.stringify(done), 
+        headers:{
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        }
+      })
+      .then(res => res.json())
+      .then( data => {
 
-      console.log(newDoneUpdated)
+          console.log('nuevo')
+          console.log(data)
 
-      // back 
-        fetch('http://localhost:3000/tasks/'+ done._id, {
-          method: 'PUT', 
-          body: JSON.stringify(newDoneUpdated), 
-          headers:{
-              'Accept': 'application/json',
-              'Content-type': 'application/json',
+          // actualizar front
+          let index = state.dones.findIndex(t => t._id == done._id )
+          if(index != -1){
+            state.dones[index] = done
           }
-        })
-        .then(res => res.json())
-        .then( data => {
-
-            console.log('data')
-            console.log(data)
-
-            // actualizar front
-            let index = state.dones.findIndex(t => t.id == done.id )
-            if(index != -1){
-              state.done[index] = done
-            }
-        })
+      })
+      
     },
 
     // fetchs

@@ -3,7 +3,7 @@
         <div class="row my-3 justify-content-between">
             <button @click="addTodoFromDoneI" class="btn btn-warning mx-2"> ✓ </button>
             <h3 v-if="!editing"><del>{{done.title}}</del></h3>
-            <input v-bind:value="doneText" @change="doneTextChange" v-else type="text" class="col form-control">
+            <input v-bind:value="doneText" @change="doneTextChange" v-else type="text" class="col form-control" @keyup.enter="updateDoneI(done)">
             <div>
                 <button @click="updateDoneI(done)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
                 <button @click="deleteDone(done._id)" class="btn btn-danger">Delete</button>
@@ -36,7 +36,13 @@ import { mapActions } from 'vuex'
                     // this.updateDone(done)
                 } else{
                     if(done.title != this.doneText){
-                        this.updateDone(done)
+
+                        const newDone = {
+                            _id: done._id,
+                            title: this.doneText
+                        }
+
+                        this.updateDone(newDone)
                     }
                     done.title = this.doneText
                 }
