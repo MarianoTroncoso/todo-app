@@ -46,7 +46,7 @@ import { mapActions } from 'vuex'
         },
         
         methods:{
-            ...mapActions(["deleteTodo", "updateTodo", "addDone"]),
+            ...mapActions(["deleteTodo", "updateTodo", "addDone", "deleteTodoFront"]),
 
             // TO DO
             todoTextChange(e){
@@ -64,11 +64,13 @@ import { mapActions } from 'vuex'
 
             // DONE
             addDoneI(){
-                this.addDone({
-                    id: this.todo.id,
-                    title: this.todo.title,
-                })
-                this.deleteTodo(this.todo.id)
+                
+                this.todo.done = true
+                console.log('this.todo.done actualizado a true')
+                this.addDone(this.todo)
+
+                // this.deleteTodo(this.todo._id)
+                this.deleteTodoFront(this.todo._id)
             },
 
             // MODAL 

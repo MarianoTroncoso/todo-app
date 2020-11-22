@@ -45,8 +45,16 @@ export default new Vuex.Store({
       commit("add_todo", todo)
     },
 
+    addTodoFromDone({commit}, todo){
+      commit("add_todo_from_done", todo)
+    },
+
     deleteTodo({commit}, id){
       commit("delete_todo", id)
+    },
+
+    deleteTodoFront({commit}, id){
+      commit("delete_todo_front", id)
     },
 
     updateTodo({commit},todo){
@@ -59,6 +67,9 @@ export default new Vuex.Store({
     },
     deleteDone({commit}, id){
       commit('delete_done', id )
+    },
+    deleteDoneFront({commit}, id){
+      commit("delete_done_front", id)
     },
     updateDone({commit}, done){
       commit('update_done', done)
@@ -79,29 +90,65 @@ export default new Vuex.Store({
 
     // TO DO 
 
-    // agregar un todo
+    // agregar un todo DESDE EL FORMULARIO
     add_todo(state,todo){
 
       // front
       // state.todos.push(todo);
 
+      console.log('todo')
+      console.log(todo) // ES SOLO EL TITULO
+
       // agregar a la bd
       fetch('http://localhost:3000/tasks', {
-        method: 'POST', 
-        body: JSON.stringify(todo),
-        headers:{
-            'Accept': 'application/json',
-            'Content-type': 'application/json',
-        }
-    })
-    .then(res => res.json())
-    .then( data => {
-        console.log('data')
-        console.log(data.data)
-        // actualizar front
-        // NECESITO EL OBJETO QUE ACABO DE GUARDAR
-        state.todos.push(data.data);
-    })
+          method: 'POST', 
+          body: JSON.stringify(todo),
+          headers:{
+              'Accept': 'application/json',
+              'Content-type': 'application/json',
+          }
+      })
+      .then(res => res.json())
+      .then( data => {
+          console.log('todo task added')
+          console.log(data.data)
+          // actualizar front
+          // NECESITO EL OBJETO QUE ACABO DE GUARDAR
+          state.todos.push(data.data);
+      })
+    },
+
+    // agregar un todo DESDE DONE
+    add_todo_from_done(state, todo){
+  
+      console.log('todo from done')
+
+      const newTodoFromDone = {
+        title: todo.title,
+        done: false 
+      }
+
+      console.log(newTodoFromDone)
+
+      // back 
+        fetch('http://localhost:3000/tasks/'+ todo._id, {
+          method: 'PUT', 
+          body: JSON.stringify(newTodoFromDone), 
+          headers:{
+              'Accept': 'application/json',
+              'Content-type': 'application/json',
+          }
+        })
+        .then(res => res.json())
+        .then( data => {
+
+            console.log('data')
+            console.log(data)
+
+            // actualizar front
+            // NECESITO EL OBJETO QUE ACABO DE GUARDAR
+            state.todos.push(data.data);
+        })
     },
 
     // eliminar un todo
@@ -122,6 +169,12 @@ export default new Vuex.Store({
       })
     },
 
+    // SOLO actualiza el front de la app
+    // cuando una todo task pasa a done
+    delete_todo_front(state, id){
+      state.todos = state.todos.filter((todo) => todo._id != id)
+    },
+
     update_todo(state, todo){
       let index = state.todos.findIndex(t => t.id == todo.id )
       if(index != -1){
@@ -130,13 +183,45 @@ export default new Vuex.Store({
     },
 
     // DONE 
-
+    // agregar una tarea en "todo" a "done"
     add_done(state, done){
-        state.dones.push(done)
+  
+      console.log('done')
+
+      const newDone = {
+        title: done.title,
+        done: true // necesario
+      }
+
+      console.log(newDone)
+
+      // back 
+        fetch('http://localhost:3000/tasks/'+ done._id, {
+          method: 'PUT', 
+          body: JSON.stringify(newDone), // le paso solo el objeto titulo
+          headers:{
+              'Accept': 'application/json',
+              'Content-type': 'application/json',
+          }
+        })
+        .then(res => res.json())
+        .then( data => {
+
+            console.log('data')
+            console.log(data)
+
+            // actualizar front
+            // NECESITO EL OBJETO QUE ACABO DE GUARDAR
+            state.dones.push(data.data);
+        })
     },
 
     delete_done(state, id){
       state.dones = state.dones.filter(done => done.id != id)
+    },
+
+    delete_done_front(state, id){
+      state.dones = state.dones.filter((done) => done._id != id)
     },
 
     update_done(state, done){
@@ -147,14 +232,6 @@ export default new Vuex.Store({
     },
 
     // fetchs
-
-    // original
-    // add_todos(state,todos){
-
-    //   state.todos = todos.filter(todo => {
-    //     return todo.done == false
-    //   })
-    // },
 
     get_tasks(state, tasks){
       // get todos

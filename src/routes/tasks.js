@@ -19,7 +19,9 @@ router.get('/', async (req, res) => {
 // });
 
 router.post('/', (req, res) => {
-    const task = new Task(req.body)
+    console.log('req.body')
+    console.log(req.body)
+    const task = new Task(req.body) // SOLO TITULO NECESITA
     task
         .save()
         .then(doc => {
@@ -31,27 +33,28 @@ router.post('/', (req, res) => {
         });
 });
 
-
-// // NO uso el id de mongo (ORIGINAL)
+// put task ORIGINAL 
 // router.put('/:id', async (req, res) => {
-
-//     // obtengo el documento que quiero actualizar mediante el "id" (no "_id") 
-//     const oldTask = await Task.find({"id": req.params.id})
-//     console.log(oldTask[0]._id) 
-        
-//     await Task.findByIdAndUpdate(oldTask[0]._id, req.body)
-
+//     await Task.findByIdAndUpdate(req.params.id, req.body)
 //     res.json({
 //         status: "Task updated"
 //     });
 // });
 
-// NUEVO (ahora con el id de mongo)
-// put task
-router.put('/:id', async (req, res) => {
-    await Task.findByIdAndUpdate(req.params.id, req.body)
-    res.json({
-        status: "Task updated"
+// nuevo
+router.put('/:id', (req, res) => {
+    console.log('req.params.id')
+    console.log(req.params.id)
+    console.log('req.body')
+    console.log(req.body)
+    Task
+    .findByIdAndUpdate(req.params.id, req.body)
+    .then(doc => {
+        res.json({ status: "Task updated", success: true, data: doc })
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).send({ error: err });
     });
 });
 

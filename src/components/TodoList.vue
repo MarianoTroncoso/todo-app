@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="bg-warning">To Do</h2>
-        <div v-for="todo in allTodos" :key="todo.id">
+        <div v-for="todo in allTodos" :key="todo._id">
             <TodoItem :todo="todo" />
     </div>
     </div>

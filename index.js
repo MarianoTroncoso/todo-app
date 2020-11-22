@@ -1,5 +1,3 @@
-// backend
-
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -20,7 +18,8 @@ mongoose.connect(uri,
     {
         useNewUrlParser: true,
         useCreateIndex: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     })
 const connection = mongoose.connection;
 connection.once('open', () => {

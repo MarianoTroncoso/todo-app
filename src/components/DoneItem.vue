@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row my-3 justify-content-between">
-            <button @click="addTodoFromDone(done)" class="btn btn-warning mx-2"> ✓ </button>
+            <button @click="addTodoFromDoneI" class="btn btn-warning mx-2"> ✓ </button>
             <h3 v-if="!editing"><del>{{done.title}}</del></h3>
             <input v-bind:value="doneText" @change="doneTextChange" v-else type="text" class="col form-control">
             <div>
@@ -25,7 +25,7 @@ import { mapActions } from 'vuex'
             }
         },
         methods:{
-            ...mapActions(["deleteDone", "updateDone", "addTodo"]),
+            ...mapActions(["deleteDone", "updateDone", "addTodo", "addTodoFromDone", "deleteDoneFront"]),
             doneTextChange(e){
                 this.doneText = e.target.value
             },
@@ -38,12 +38,18 @@ import { mapActions } from 'vuex'
                     done.title = this.doneText
                 }
             },
-            addTodoFromDone(done){
-                this.addTodo({
-                        id: done.id,
-                        title: done.title
-                    })                
-                this.deleteDone(done.id)
+            addTodoFromDoneI(){
+
+                console.log('this.done')
+                console.log(this.done)
+
+                this.done.done = false
+                console.log('this.done.done actualizado a false')
+
+                // this.addTodo(done)    NOOOO, voy a hacer otro metodo
+                this.addTodoFromDone(this.done)            
+                
+                this.deleteDoneFront(this.done._id)
             }
         }
     }

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="bg-success">Done</h2>
-        <div v-for="done in allDones" :key=done.id> 
+        <div v-for="done in allDones" :key=done._id> 
             <DoneItem :done='done' />
         </div>
     </div>
