@@ -19,7 +19,7 @@
                     </div>
                     <div class="row">
                         <b-button class="col mt-2" block @click="hideModal">Close</b-button>
-                        <b-button   b-button class="col btn btn-danger mt-2" block @click="deleteTodoAndHide(todo.id)">Delete</b-button>
+                        <b-button   b-button class="col btn btn-danger mt-2" block @click="deleteTodoAndHide(todo._id)">Delete</b-button>
                     </div>
                     
                 </b-modal>
@@ -46,7 +46,7 @@ import { mapActions } from 'vuex'
         },
         
         methods:{
-            ...mapActions(["deleteTodo", "updateTodo", "addDone"]),
+            ...mapActions(["deleteTodo", "updateTodo", "addDone", "deleteTodoFront"]),
 
             // TO DO
             todoTextChange(e){
@@ -54,22 +54,41 @@ import { mapActions } from 'vuex'
             },
             updateTodoI(todo){
                 this.editing = this.editing == true? false : true
-                if(this.editing) {
+                if(this.editing) {                    
+                    // para que tome el mismo valor que tenia antes de editar
                     this.todoText = todo.title
-                    this.updateTodo(todo)
+
                 } else {
+                    if(todo.title != this.todoText){
+                        // si son distintos hago el fetch
+
+                        // console.log('se modificó el titulo')
+
+                        const newTodo = {
+                            _id: todo._id,
+                            title: this.todoText
+                        }
+
+                        // console.log('nuevo todo')
+                        // console.log(newTodo)
+                        
+                        // para actualizar necesito el id !
+                        this.updateTodo(newTodo)
+
+                    }
                     todo.title = this.todoText
                 }
             },
 
             // DONE
             addDoneI(){
+                
+                this.todo.done = true
+                console.log('this.todo.done actualizado a true')
+                this.addDone(this.todo)
 
-                this.addDone({
-                    id: this.todo.id,
-                    title: this.todo.title,
-                })
-                this.deleteTodo(this.todo.id)
+                // this.deleteTodo(this.todo._id)
+                this.deleteTodoFront(this.todo._id)
             },
 
             // MODAL 
@@ -82,11 +101,9 @@ import { mapActions } from 'vuex'
             },
 
             deleteTodoAndHide(id){
-                this.$refs['my-modal'].hide()
+                this.$refs['my-modal'].hide() // esconder ventana modal
                 this.deleteTodo(id)
-
             }
-
         }
     }
 </script>
