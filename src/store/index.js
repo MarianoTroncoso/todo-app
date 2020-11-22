@@ -151,6 +151,7 @@ export default new Vuex.Store({
       state.todos = state.todos.filter((todo) => todo._id != id)
     },
 
+    // todo = el nuevo
     update_todo(state, todo){
 
       // let index = state.todos.findIndex(t => t.id == todo.id )
@@ -159,16 +160,14 @@ export default new Vuex.Store({
       // }
 
       // back
-      const newTodoUpdated = {
-        title: todo.title, 
-      }
-
-      console.log(newTodoUpdated)
+      // const newTodoUpdated = {
+      //   title: todo.title, 
+      // }
 
       // back 
         fetch('http://localhost:3000/tasks/'+ todo._id, {
           method: 'PUT', 
-          body: JSON.stringify(newTodoUpdated), 
+          body: JSON.stringify(todo), 
           headers:{
               'Accept': 'application/json',
               'Content-type': 'application/json',
@@ -177,11 +176,11 @@ export default new Vuex.Store({
         .then(res => res.json())
         .then( data => {
 
-            console.log('data')
+            console.log('nuevo')
             console.log(data)
 
             // actualizar front
-            let index = state.todos.findIndex(t => t.id == todo.id )
+            let index = state.todos.findIndex(t => t._id == todo._id )
             if(index != -1){
               state.todos[index] = todo
             }
@@ -245,11 +244,41 @@ export default new Vuex.Store({
       state.dones = state.dones.filter((done) => done._id != id)
     },
 
+    // NO TERMINADO
     update_done(state, done){
-      let index = state.dones.findIndex(d => d.id == done.id)
-      if(index != -1){
-        state.dones[index] = done
+      // let index = state.dones.findIndex(d => d.id == done.id)
+      // if(index != -1){
+      //   state.dones[index] = done
+      // }
+
+      // back
+      const newDoneUpdated = {
+        title: done.title, 
       }
+
+      console.log(newDoneUpdated)
+
+      // back 
+        fetch('http://localhost:3000/tasks/'+ done._id, {
+          method: 'PUT', 
+          body: JSON.stringify(newDoneUpdated), 
+          headers:{
+              'Accept': 'application/json',
+              'Content-type': 'application/json',
+          }
+        })
+        .then(res => res.json())
+        .then( data => {
+
+            console.log('data')
+            console.log(data)
+
+            // actualizar front
+            let index = state.dones.findIndex(t => t.id == done.id )
+            if(index != -1){
+              state.done[index] = done
+            }
+        })
     },
 
     // fetchs

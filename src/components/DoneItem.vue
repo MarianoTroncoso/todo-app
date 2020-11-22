@@ -33,8 +33,11 @@ import { mapActions } from 'vuex'
                 this.editing = this.editing == true? false : true
                 if(this.editing){
                     this.doneText = done.title
-                    this.updateDone(done)
+                    // this.updateDone(done)
                 } else{
+                    if(done.title != this.doneText){
+                        this.updateDone(done)
+                    }
                     done.title = this.doneText
                 }
             },

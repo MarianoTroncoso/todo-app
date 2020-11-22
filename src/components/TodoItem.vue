@@ -54,12 +54,32 @@ import { mapActions } from 'vuex'
             },
             updateTodoI(todo){
                 this.editing = this.editing == true? false : true
-                if(this.editing) {
+                if(this.editing) {                    
+                    // para que tome el mismo valor que tenia antes de editar
                     this.todoText = todo.title
+
                 } else {
                     if(todo.title != this.todoText){
                         // si son distintos hago el fetch
-                        this.updateTodo(todo)
+
+                        console.log('se modificó el titulo')
+
+                        // console.log('this.todoText') // nuevo 
+                        // console.log(this.todoText) // la primera vez es vacio por la asignacion de arriba
+                        // console.log('todo.title') // viejo
+                        // console.log(todo.title)
+
+                        const newTodo = {
+                            _id: todo._id,
+                            title: this.todoText
+                        }
+
+                        console.log('nuevo todo')
+                        console.log(newTodo)
+                        
+                        // para actualizar necesito el id !
+                        this.updateTodo(newTodo)
+
                     }
                     todo.title = this.todoText
                 }

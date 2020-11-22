@@ -43,10 +43,10 @@ router.post('/', (req, res) => {
 
 // nuevo
 router.put('/:id', (req, res) => {
-    console.log('req.params.id')
-    console.log(req.params.id)
-    console.log('req.body')
+
     console.log(req.body)
+    console.log(req.params.id)
+
     Task
     .findByIdAndUpdate(req.params.id, req.body)
     .then(doc => {
