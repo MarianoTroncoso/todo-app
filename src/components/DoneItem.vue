@@ -6,7 +6,7 @@
             <input v-bind:value="doneText" @change="doneTextChange" v-else type="text" class="col form-control">
             <div>
                 <button @click="updateDoneI(done)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
-                <button @click="deleteDone(done.id)" class="btn btn-danger">Delete</button>
+                <button @click="deleteDone(done._id)" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>

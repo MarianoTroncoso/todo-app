@@ -217,7 +217,22 @@ export default new Vuex.Store({
     },
 
     delete_done(state, id){
-      state.dones = state.dones.filter(done => done.id != id)
+    
+      // state.dones = state.dones.filter(done => done.id != id)
+      // eliminar en bd
+      fetch('http://localhost:3000/tasks/' + id,{
+        method: 'DELETE',
+        headers:{
+          'Accept': 'application/json',
+          'Content-type': 'application/json'
+        }
+      })
+      .then( res => res.json())
+      .then( data => {
+        console.log(data)
+        // actualizar front
+        state.dones = state.dones.filter((done) => done._id != id)
+      })
     },
 
     delete_done_front(state, id){
