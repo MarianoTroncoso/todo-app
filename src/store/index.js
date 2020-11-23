@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const url = 'http://localhost:3000/tasks/'
+
 export default new Vuex.Store({
   state: {
 
@@ -60,17 +62,10 @@ export default new Vuex.Store({
 
     // TO DO 
 
-    // agregar un todo DESDE EL FORMULARIO
+    // agregar un todo desde el input
     add_todo(state,todo){
-
-      // front
-      // state.todos.push(todo);
-
-      console.log('todo')
-      console.log(todo) // ES SOLO EL TITULO
-
-      // agregar a la bd
-      fetch('http://localhost:3000/tasks', {
+      // bd
+      fetch(url, {
           method: 'POST', 
           body: JSON.stringify(todo),
           headers:{
@@ -80,43 +75,31 @@ export default new Vuex.Store({
       })
       .then(res => res.json())
       .then( data => {
-          console.log('todo task added')
-          console.log(data.data)
-          // actualizar front
-          // NECESITO EL OBJETO QUE ACABO DE GUARDAR
+          // front
           state.todos.push(data.data);
       })
     },
 
-    // agregar un todo DESDE DONE
+    // agregar un todo desde done
     add_todo_from_done(state, todo){
-  
-      console.log('todo from done')
 
       const newTodoFromDone = {
         title: todo.title,
         done: false 
       }
 
-      console.log(newTodoFromDone)
-
       // back 
-        fetch('http://localhost:3000/tasks/'+ todo._id, {
-          method: 'PUT', 
-          body: JSON.stringify(newTodoFromDone), 
-          headers:{
-              'Accept': 'application/json',
-              'Content-type': 'application/json',
-          }
-        })
-        .then(res => res.json())
-        .then( data => {
-
-            console.log('data')
-            console.log(data)
-
-            // actualizar front
-            // NECESITO EL OBJETO QUE ACABO DE GUARDAR
+      fetch(url+ todo._id, {
+        method: 'PUT', 
+        body: JSON.stringify(newTodoFromDone), 
+        headers:{
+            'Accept': 'application/json',
+            'Content-type': 'application/json',
+        }
+      })
+      .then(res => res.json())
+      .then( data => {
+            // front
             state.todos.push(data.data);
         })
     },
@@ -124,18 +107,16 @@ export default new Vuex.Store({
     // eliminar un todo
     delete_todo(state, id){
       // eliminar en bd
-      fetch('http://localhost:3000/tasks/' + id,{
+      fetch(url + id,{
         method: 'DELETE',
         headers:{
           'Accept': 'application/json',
           'Content-type': 'application/json'
         }
       })
-      .then( res => res.json())
-      .then( data => {
-        console.log(data) // undefined
-        // actualizar front
-        state.todos = state.todos.filter((todo) => todo._id != id)
+      .then( res => {
+          res.json()
+          state.todos = state.todos.filter((todo) => todo._id != id)
       })
     },
 
@@ -149,7 +130,7 @@ export default new Vuex.Store({
     update_todo(state, todo){
 
       // back 
-        fetch('http://localhost:3000/tasks/'+ todo._id, {
+        fetch(url+ todo._id, {
           method: 'PUT', 
           body: JSON.stringify(todo), 
           headers:{
@@ -157,13 +138,9 @@ export default new Vuex.Store({
               'Content-type': 'application/json',
           }
         })
-        .then(res => res.json())
-        .then( data => {
-
-            console.log('nuevo')
-            console.log(data)
-
-            // actualizar front
+        .then(res => {
+            res.json()
+            // front
             let index = state.todos.findIndex(t => t._id == todo._id )
             if(index != -1){
               state.todos[index] = todo
@@ -175,19 +152,15 @@ export default new Vuex.Store({
     // agregar una tarea en "todo" a "done"
     add_done(state, done){
   
-      console.log('done')
-
       const newDone = {
         title: done.title,
-        done: true // necesario
+        done: true 
       }
 
-      console.log(newDone)
-
-      // back 
-        fetch('http://localhost:3000/tasks/'+ done._id, {
+      // bd
+        fetch(url+ done._id, {
           method: 'PUT', 
-          body: JSON.stringify(newDone), // le paso solo el objeto titulo
+          body: JSON.stringify(newDone),
           headers:{
               'Accept': 'application/json',
               'Content-type': 'application/json',
@@ -195,32 +168,25 @@ export default new Vuex.Store({
         })
         .then(res => res.json())
         .then( data => {
-
-            console.log('data')
-            console.log(data)
-
-            // actualizar front
-            // NECESITO EL OBJETO QUE ACABO DE GUARDAR
+            // front
             state.dones.push(data.data);
         })
     },
 
     delete_done(state, id){
     
-      // state.dones = state.dones.filter(done => done.id != id)
-      // eliminar en bd
-      fetch('http://localhost:3000/tasks/' + id,{
+      // bd
+      fetch(url+ id,{
         method: 'DELETE',
         headers:{
           'Accept': 'application/json',
           'Content-type': 'application/json'
         }
       })
-      .then( res => res.json())
-      .then( data => {
-        console.log(data)
-        // actualizar front
-        state.dones = state.dones.filter((done) => done._id != id)
+      .then( res => {
+          res.json()
+          // front
+          state.dones = state.dones.filter((done) => done._id != id)
       })
     },
 
@@ -228,14 +194,9 @@ export default new Vuex.Store({
       state.dones = state.dones.filter((done) => done._id != id)
     },
 
-    // NO TERMINADO
     update_done(state, done){
-      // let index = state.dones.findIndex(d => d.id == done.id)
-      // if(index != -1){
-      //   state.dones[index] = done
-      // }
-
-      fetch('http://localhost:3000/tasks/'+ done._id, {
+      // bd
+      fetch(url+ done._id, {
         method: 'PUT', 
         body: JSON.stringify(done), 
         headers:{
@@ -243,19 +204,14 @@ export default new Vuex.Store({
             'Content-type': 'application/json',
         }
       })
-      .then(res => res.json())
-      .then( data => {
-
-          console.log('nuevo')
-          console.log(data)
-
-          // actualizar front
+      .then(res => {
+          res.json()
+          // front
           let index = state.dones.findIndex(t => t._id == done._id )
           if(index != -1){
             state.dones[index] = done
           }
-      })
-      
+      })      
     },
 
     // fetchs

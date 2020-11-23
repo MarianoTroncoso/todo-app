@@ -33,7 +33,6 @@ import { mapActions } from 'vuex'
                 this.editing = this.editing == true? false : true
                 if(this.editing){
                     this.doneText = done.title
-                    // this.updateDone(done)
                 } else{
                     if(done.title != this.doneText){
 
@@ -41,23 +40,14 @@ import { mapActions } from 'vuex'
                             _id: done._id,
                             title: this.doneText
                         }
-
                         this.updateDone(newDone)
                     }
                     done.title = this.doneText
                 }
             },
             addTodoFromDoneI(){
-
-                console.log('this.done')
-                console.log(this.done)
-
                 this.done.done = false
-                console.log('this.done.done actualizado a false')
-
-                // this.addTodo(done)    NOOOO, voy a hacer otro metodo
                 this.addTodoFromDone(this.done)            
-                
                 this.deleteDoneFront(this.done._id)
             }
         }

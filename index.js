@@ -12,7 +12,7 @@ const app = express();
 // settings 
 app.set('port', process.env.PORT || 3000)
 
-// MONGO
+// mongo
 const uri = process.env.URI_MONGO;
 mongoose.connect(uri, 
     {
@@ -26,7 +26,6 @@ connection.once('open', () => {
     console.log('Connected to Mongo')
 })
 
-
 // middlewares
 app.use(morgan('dev'));
 app.use(express.json());
@@ -37,8 +36,6 @@ app.use('/tasks', require('./src/routes/tasks'))
 
 // static files
 app.use(express.static(__dirname + '/public'))
-
-
 
 // server is listening
 app.listen(app.get('port'), () =>{

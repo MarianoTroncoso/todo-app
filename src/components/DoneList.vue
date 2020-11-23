@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h2 class="bg-success">Done</h2>
+        <h2 class="bg-success h2-color">Done</h2>
+        <b-alert show variant="dark" v-if="allDones.length == 0">No Tasks Done</b-alert>
         <div v-for="done in allDones" :key=done._id> 
             <DoneItem :done='done' />
         </div>
@@ -22,6 +23,8 @@ import DoneItem from './DoneItem';
     }
 </script>
 
-<style lang="scss" scoped>
-
+<style scoped>
+    .h2-color{
+        color: white
+    }
 </style>

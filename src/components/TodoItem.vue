@@ -8,12 +8,8 @@
             @keyup.enter="updateTodoI(todo)">
             <div>
                 <button @click="updateTodoI(todo)" class="btn btn-primary mx-2">{{editing?'Update':'Edit'}}</button>
-                
-                <!-- <button @click="deleteTodo(todo.id)" class="btn btn-danger">Delete</button> -->
-
                 <b-button id="show-btn" @click="showModal" class="btn btn-danger">Delete</b-button>
-
-                <b-modal ref="my-modal" hide-footer title="Delete To Do">
+                <b-modal ref="my-modal" hide-footer title="Delete Task To Do ">
                     <div class="d-block text-center">
                         <p>The task has not been completed. Are you sure to delete it?</p>
                     </div>
@@ -21,10 +17,7 @@
                         <b-button class="col mt-2" block @click="hideModal">Close</b-button>
                         <b-button   b-button class="col btn btn-danger mt-2" block @click="deleteTodoAndHide(todo._id)">Delete</b-button>
                     </div>
-                    
                 </b-modal>
-
-                
             </div>
         </div>
     </div>
@@ -44,11 +37,10 @@ import { mapActions } from 'vuex'
                 doneText: "",
             }
         },
-        
         methods:{
             ...mapActions(["deleteTodo", "updateTodo", "addDone", "deleteTodoFront"]),
 
-            // TO DO
+            // to do
             todoTextChange(e){
                 this.todoText = e.target.value
             },
@@ -61,45 +53,29 @@ import { mapActions } from 'vuex'
                 } else {
                     if(todo.title != this.todoText){
                         // si son distintos hago el fetch
-
-                        // console.log('se modificó el titulo')
-
                         const newTodo = {
                             _id: todo._id,
                             title: this.todoText
                         }
-
-                        // console.log('nuevo todo')
-                        // console.log(newTodo)
-                        
-                        // para actualizar necesito el id !
                         this.updateTodo(newTodo)
-
                     }
                     todo.title = this.todoText
                 }
             },
-
             // DONE
             addDoneI(){
-                
                 this.todo.done = true
-                console.log('this.todo.done actualizado a true')
                 this.addDone(this.todo)
-
-                // this.deleteTodo(this.todo._id)
                 this.deleteTodoFront(this.todo._id)
             },
 
             // MODAL 
-
             showModal() {
                 this.$refs['my-modal'].show()
             },
             hideModal() {
                 this.$refs['my-modal'].hide()
             },
-
             deleteTodoAndHide(id){
                 this.$refs['my-modal'].hide() // esconder ventana modal
                 this.deleteTodo(id)

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
+
 import TodoInput from '../components/TodoInput'
 import TodoList from '../components/TodoList'
 import DoneList from '../components/DoneList'

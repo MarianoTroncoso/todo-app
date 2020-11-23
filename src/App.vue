@@ -18,7 +18,6 @@ export default {
   components: {},
 
   created(){
-    // this.getTodos()
     this.getAllTasks()
   },
 
