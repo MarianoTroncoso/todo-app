@@ -1,24 +1,18 @@
-# todo-app
+# To Do App with Vue
 
 ## Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Connect to Mongo Altas
+It is necessary to create the MONGO_URI environment variable, which has the connection string to your mongo atlas cluster
+### Start the local server (localhost:3000)
+```
+npm run dev
+```
+
+### start vue app (localhost: 8080)
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
