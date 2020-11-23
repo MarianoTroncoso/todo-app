@@ -12,7 +12,7 @@ It is necessary to create the MONGO_URI environment variable, which has the conn
 npm run dev
 ```
 
-### start vue app (localhost: 8080)
+### Start Vue app (localhost: 8080)
 ```
 npm run serve
 ```
